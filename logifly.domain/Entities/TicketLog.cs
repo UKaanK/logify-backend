@@ -1,4 +1,5 @@
-﻿using System;
+﻿using logifly.domain.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,7 +12,7 @@ namespace logifly.domain.Entities
         public Guid Id { get; set; }
         public  Guid TicketId { get; set; }
         public Ticket Ticket { get; set; }
-        public string LogType { get; set; } = "INFO";
+        public TicketLogType LogType { get; set; } = TicketLogType.Info;
         public string Content { get; set; } = string.Empty;
         public DateTime CreatedAt { get; set; } =DateTime.UtcNow;
 
