@@ -1,0 +1,6 @@
+@logifly.api_HostAddress = http://localhost:5105
+
+GET {{logifly.api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
