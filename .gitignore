@@ -50,9 +50,9 @@ Migrations/
 **/docker-compose.override.yml
 **/docker-compose.override.yaml
 **/docker-compose.override.*
-**/docker-compose.yml
 **/.docker/
 **/.dockerignore
+
 
 # Environment files
 .env

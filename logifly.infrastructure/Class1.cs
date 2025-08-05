@@ -1,4 +1,4 @@
-﻿namespace logifly.ınfrastructure
+﻿namespace logifly.infrastructure
 {
     public class Class1
     {
