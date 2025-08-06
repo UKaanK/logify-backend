@@ -7,6 +7,8 @@ using logifly.application.Services;
 using logifly.application.Validators;
 using logifly.persistence.Contexts;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -38,7 +40,24 @@ builder.Services.AddControllers();
 
 
 builder.Services.AddEndpointsApiExplorer(); // gerekli
-builder.Services.AddSwaggerGen(); // swagger servisi
+builder.Services.AddSwaggerGen(c =>
+{
+    var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
+    c.SwaggerDoc("v1", new OpenApiInfo
+    {
+        Title = "Logify API",
+        Version = "v1",
+        Description = "Bu API,destek taleplerinin yönetimini saðlar",
+        Contact = new OpenApiContact
+        {
+            Name = "Umut Kaan Kartaloðlu",
+            Email = "umutkaankartaloglu9@gmail.com"
+        }
+    });
+}
+    
+    ); // swagger servisi
 
 var app = builder.Build();
 
