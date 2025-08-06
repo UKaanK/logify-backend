@@ -21,9 +21,11 @@
 	<PackageReference Include="Serilog.Enrichers.Thread" Version="4.0.0" />
 	<PackageReference Include="Serilog.Settings.Configuration" Version="9.0.0" />
 	<PackageReference Include="Serilog.Sinks.Elasticsearch" Version="10.0.0" />
+	<PackageReference Include="Swashbuckle.AspNetCore" Version="9.0.3" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\logifly.application\logifly.application.csproj" />
     <ProjectReference Include="..\logifly.persistence\logifly.persistence.csproj" />
   </ItemGroup>
 

@@ -1,10 +1,12 @@
 
 
-using Microsoft.EntityFrameworkCore;
-using logifly.persistence.Contexts;
-using FluentValidation.AspNetCore;
-using logifly.application.Validators;
 using FluentValidation;
+using FluentValidation.AspNetCore;
+using logifly.application.Interfaces;
+using logifly.application.Services;
+using logifly.application.Validators;
+using logifly.persistence.Contexts;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,26 +19,39 @@ builder.Services.AddValidatorsFromAssemblyContaining<TicketCreateDtoValidator>()
 builder.Services.AddValidatorsFromAssemblyContaining<TicketLogCreateDtoValidator>();
 
 
-// Add services to the container.
+// CORS policy ekle
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll", policy =>
+    {
+        policy.AllowAnyOrigin()
+              .AllowAnyMethod()
+              .AllowAnyHeader();
+    });
+});
 
+// Add services to the container.
+builder.Services.AddScoped<ITicketService, TicketService>();
+builder.Services.AddScoped<ITicketLogService, TicketLogService>(); // varsa log service için de
 builder.Services.AddControllers();
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-builder.Services.AddOpenApi();
+// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi 
+
+
+builder.Services.AddEndpointsApiExplorer(); // gerekli
+builder.Services.AddSwaggerGen(); // swagger servisi
 
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
 {
-    using var scope = app.Services.CreateScope();
-    var db = scope.ServiceProvider.GetRequiredService<LogiflyDbContext>();
-    db.Database.Migrate();
+    app.UseSwagger();
+    app.UseSwaggerUI(); // Ýstersen ayar da verebilirsin
+    //using var scope = app.Services.CreateScope();
+    //var db = scope.ServiceProvider.GetRequiredService<LogiflyDbContext>();
+    //db.Database.Migrate();
 }
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.MapOpenApi();
-}
+app.UseCors("AllowAll");
 
 app.UseHttpsRedirection();
 
