@@ -2,11 +2,20 @@
 
 using Microsoft.EntityFrameworkCore;
 using logifly.persistence.Contexts;
+using FluentValidation.AspNetCore;
+using logifly.application.Validators;
+using FluentValidation;
 
 var builder = WebApplication.CreateBuilder(args);
 
 //Database Baðlantýsý
 builder.Services.AddDbContext<LogiflyDbContext>(options=>options.UseNpgsql(builder.Configuration.GetConnectionString("PostgreSQL")));
+
+//Validator Baðlantýsý
+builder.Services.AddFluentValidationAutoValidation().AddFluentValidationClientsideAdapters();
+builder.Services.AddValidatorsFromAssemblyContaining<TicketCreateDtoValidator>();
+builder.Services.AddValidatorsFromAssemblyContaining<TicketLogCreateDtoValidator>();
+
 
 // Add services to the container.
 
