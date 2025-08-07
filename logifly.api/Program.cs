@@ -2,11 +2,15 @@
 
 using FluentValidation;
 using FluentValidation.AspNetCore;
+using logifly.api.Middlewares;
+using logifly.api.Models;
 using logifly.application.Interfaces;
 using logifly.application.Services;
 using logifly.application.Validators;
 using logifly.persistence.Contexts;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 using System.Reflection;
 
@@ -59,6 +63,16 @@ builder.Services.AddSwaggerGen(c =>
     
     ); // swagger servisi
 
+builder.Services.Configure<ApiBehaviorOptions>(options =>
+{
+    options.InvalidModelStateResponseFactory = context =>
+    {
+        var errors = context.ModelState.Where(e => e.Value.Errors.Count > 0).ToDictionary(kvp => kvp.Key, kvp => kvp.Value.Errors.Select(x => x.ErrorMessage).ToArray());
+        var apiError = new ApiException(400, "Validation Failed", errors);
+        return new BadRequestObjectResult(apiError);
+    };
+});
+
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
@@ -69,6 +83,8 @@ if (app.Environment.IsDevelopment())
     //var db = scope.ServiceProvider.GetRequiredService<LogiflyDbContext>();
     //db.Database.Migrate();
 }
+
+app.UseMiddleware<ExceptionMiddleware>();
 
 app.UseCors("AllowAll");
 
