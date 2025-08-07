@@ -37,6 +37,7 @@ builder.Services.AddCors(options =>
 });
 
 // Add services to the container.
+builder.Services.AddScoped<ILogService, LogService>();
 builder.Services.AddScoped<ITicketService, TicketService>();
 builder.Services.AddScoped<ITicketLogService, TicketLogService>(); // varsa log service için de
 builder.Services.AddControllers();
