@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.14.36327.8 d17.14
+VisualStudioVersion = 17.14.36327.8
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "logifly.api", "logifly.api\logifly.api.csproj", "{9B7D0CEB-62C0-45AD-8AC2-10760E19A860}"
 EndProject
@@ -12,6 +12,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "logifly.infrastructure", "logifly.infrastructure\logifly.infrastructure.csproj", "{830A0FBF-FED1-45A0-B228-B1AC5113D109}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "logifly.persistence", "logifly.persistence\logifly.persistence.csproj", "{B523FED4-4EBF-440F-ABC2-E82006DE208B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "logifly.tests", "logifly.tests\logifly.tests.csproj", "{B2BAF4DD-22AC-49E9-A9E5-D9EBBE3D0B59}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "logifly.winforms", "logifly.winforms\logifly.winforms.csproj", "{4DDA9F54-E196-4189-906F-C208104164DD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +43,14 @@ Global
 		{B523FED4-4EBF-440F-ABC2-E82006DE208B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B523FED4-4EBF-440F-ABC2-E82006DE208B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B523FED4-4EBF-440F-ABC2-E82006DE208B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B2BAF4DD-22AC-49E9-A9E5-D9EBBE3D0B59}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B2BAF4DD-22AC-49E9-A9E5-D9EBBE3D0B59}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B2BAF4DD-22AC-49E9-A9E5-D9EBBE3D0B59}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B2BAF4DD-22AC-49E9-A9E5-D9EBBE3D0B59}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4DDA9F54-E196-4189-906F-C208104164DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4DDA9F54-E196-4189-906F-C208104164DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4DDA9F54-E196-4189-906F-C208104164DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4DDA9F54-E196-4189-906F-C208104164DD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
