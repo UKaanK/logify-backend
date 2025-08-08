@@ -10,7 +10,7 @@ namespace logifly.application.DTOs
     {
         public Guid TicketId { get; set; }
         public string Content { get; set; } = string.Empty;
-        public string LogType { get; set; }
+        public string? LogType { get; set; }
         public string? CreatedBy { get; set; }
     }
 }
