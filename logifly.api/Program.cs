@@ -12,7 +12,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
+using Serilog;
+using Serilog.Sinks.Elasticsearch;
 using System.Reflection;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -74,6 +77,12 @@ builder.Services.Configure<ApiBehaviorOptions>(options =>
     };
 });
 
+builder.Host.UseSerilog((context, services, loggerConfiguration) =>
+{
+    loggerConfiguration
+      .ReadFrom.Configuration(context.Configuration); // BU SATIR HER ÞEYÝ ÇEKER
+});
+
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
@@ -84,9 +93,10 @@ if (app.Environment.IsDevelopment())
     //var db = scope.ServiceProvider.GetRequiredService<LogiflyDbContext>();
     //db.Database.Migrate();
 }
+app.UseRouting();
 
 app.UseMiddleware<ExceptionMiddleware>();
-
+app.UseMiddleware<ResponseLoggingMiddleware>(); // 1. adým - response logla 
 app.UseCors("AllowAll");
 
 app.UseHttpsRedirection();
