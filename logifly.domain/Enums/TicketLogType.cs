@@ -8,9 +8,8 @@ namespace logifly.domain.Enums
 {
    public enum TicketLogType
     {
-        Info,
-        Answer,
-        System,
-        Note
+        INFO,
+        WARNING,
+        ERROR
     }
 }

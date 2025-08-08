@@ -12,7 +12,7 @@ namespace logifly.domain.Entities
         public Guid Id { get; set; }
         public  Guid TicketId { get; set; }
         public Ticket Ticket { get; set; }
-        public TicketLogType LogType { get; set; } = TicketLogType.Info;
+        public TicketLogType LogType { get; set; } = TicketLogType.INFO;
         public string Content { get; set; } = string.Empty;
         public DateTime CreatedAt { get; set; } =DateTime.UtcNow;
 

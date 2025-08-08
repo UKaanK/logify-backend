@@ -33,7 +33,7 @@ namespace logifly.persistence.Contexts
             modelBuilder.Entity<TicketLog>(entity =>
             {
                 entity.HasKey(e => e.Id);
-                entity.Property(e => e.LogType).IsRequired().HasMaxLength(200);
+                entity.Property(e => e.LogType).IsRequired().HasMaxLength(200).HasConversion<string>();
                 entity.Property(e => e.Content).IsRequired();
                 entity.Property(e => e.CreatedAt).IsRequired();
 

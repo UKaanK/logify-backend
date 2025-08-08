@@ -11,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\logifly.infrastructure\logifly.infrastructure.csproj" />
     <ProjectReference Include="..\logifly.persistence\logifly.persistence.csproj" />
   </ItemGroup>
 

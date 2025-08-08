@@ -14,9 +14,11 @@ namespace logifly.application.Services
     public class TicketService : ITicketService
     {
         private readonly LogiflyDbContext _context;
-        public TicketService(LogiflyDbContext context)
+        private readonly ILogService _logService;
+        public TicketService(LogiflyDbContext context,ILogService logService)
         {
             _context = context;
+            _logService = logService;
         }
         public async Task<TicketResponseDto> CreateTicketAsync(TicketCreateDto dto)
         {
@@ -29,19 +31,9 @@ namespace logifly.application.Services
                 Status = domain.Enums.TicketStatus.Pending
             };
             await _context.Tickets.AddAsync(ticket);
-
-            var ticketLog = new TicketLog
-            {
-                Id = Guid.NewGuid(),
-                CreatedAt = DateTime.UtcNow,
-                CreatedBy = ticket.CreatedBy,
-                TicketId = ticket.Id,
-                LogType = domain.Enums.TicketLogType.INFO,
-                Content = $"Ticket Oluşturuldu: {ticket.Title} - {ticket.Message}"
-            };
-
-
             await _context.SaveChangesAsync();
+
+            await _logService.LogInfoAsync($"Ticket Oluşturuldu: {ticket.Title} - {ticket.Message}",ticket.Id,ticket.CreatedBy??"Unkown");
 
             return new TicketResponseDto
             {
@@ -98,18 +90,9 @@ namespace logifly.application.Services
             if (Enum.TryParse<domain.Enums.TicketStatus>(newStatus,true,out var status))
             {
                 ticket.Status = status;
-
-                var ticketlog = new TicketLog
-                {
-                    Id=Guid.NewGuid(),
-                    CreatedAt=DateTime.UtcNow,
-                    Content = $"Ticket Durumu Güncellendi: {ticket.Title} - {ticket.Message}",
-                    CreatedBy = ticket.CreatedBy,
-                    LogType = domain.Enums.TicketLogType.INFO,
-                    TicketId = ticket.Id
-                };
-                _context.TicketLogs.Add(ticketlog);
                 await _context.SaveChangesAsync();
+
+                await _logService.LogInfoAsync($"Ticket Durumu Güncellendi: {ticket.Title} - Yeni Durum: {ticket.Status}", ticket.Id, ticket.CreatedBy ?? "Unkown");
                 return true;
             }
             return false;
